@@ -12,7 +12,7 @@ def get_points(img):
 
 
 def get_arena(points, img):
-    width, height = 400, 400
+    width, height = 1000, 500
     pts1 = np.float32(points)
     pts2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
     matrix = cv2.getPerspectiveTransform(pts1, pts2)
