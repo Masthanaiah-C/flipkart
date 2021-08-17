@@ -2,7 +2,7 @@
     we use serial to note the status of the game.
 */
 int CHANNEL = 100;
-int DELAY; // if applicable we use this
+int DELAY =100; // if applicable we use this
 
 #include <SPI.h>
 #include <RF24.h>

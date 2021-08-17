@@ -32,9 +32,10 @@ int LIFT_MOTOR_IN_3;
 int LIFT_MOTOR_IN_4;
 int LEFT_WHEEL_IN_1;
 int LEFT_WHEEL_IN_2;
+int ena;
 int RIGHT_WHEEL_IN_1;
 int RIGHT_WHEEL_IN_2;
-
+int enb;
 //VALUE SECTION END
 
 //Dont touch anything below this line unless you need to change directions 
@@ -90,11 +91,11 @@ void run(int clk, int len)
     //clk = (clk + 1) % 2;
     digitalWrite(LEFT_WHEEL_IN_2, clk ? LOW : HIGH);
     digitalWrite(LEFT_WHEEL_IN_1, clk ? HIGH : LOW);
-    //analogWrite(ena, 255);
+    analogWrite(ena, 255);
 
     digitalWrite(RIGHT_WHEEL_IN_2, clk ? LOW : HIGH);
     digitalWrite(RIGHT_WHEEL_IN_1, clk ? HIGH : LOW);
-    //analogWrite(enb, 255);
+    analogWrite(enb, 255);
     delay(len);
 }
 void stop(int dly)
