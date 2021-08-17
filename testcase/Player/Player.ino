@@ -28,6 +28,8 @@ int DELAY = 50; // stop delay for the computer to recognise that the robot is at
 // assign port values to the following 6 
 int LIFT_MOTOR_IN_1; 
 int LIFT_MOTOR_IN_2; 
+int LIFT_MOTOR_IN_3; 
+int LIFT_MOTOR_IN_4;
 int LEFT_WHEEL_IN_1;
 int LEFT_WHEEL_IN_2;
 int RIGHT_WHEEL_IN_1;
@@ -39,6 +41,7 @@ int RIGHT_WHEEL_IN_2;
 #include <RF24.h>
 #include <nRF24L01.h>
 #include <RF24_config.h>
+int step_number= 0;
 #define MISO 12
 //#define IRQ 2
 #define SCK 13
@@ -102,14 +105,95 @@ void stop(int dly)
     digitalWrite(RIGHT_WHEEL_IN_2, LOW);
     delay(dly);
 }
+void Onestep(bool dir)
+{
+  if (dir)
+  {
+    switch(step_number)
+    {
+      case 0:
+      digitalWrite(LIFT_MOTOR_IN_1,HIGH);
+      digitalWrite(LIFT_MOTOR_IN_2,LOW);
+      digitalWrite(LIFT_MOTOR_IN_3,LOW);
+      digitalWrite(LIFT_MOTOR_IN_4,LOW);
+      break;
+
+      case 1:
+      digitalWrite(LIFT_MOTOR_IN_1,LOW);
+      digitalWrite(LIFT_MOTOR_IN_2,HIGH);
+      digitalWrite(LIFT_MOTOR_IN_3,LOW);
+      digitalWrite(LIFT_MOTOR_IN_4,LOW);
+      break;
+
+      case 2:
+      digitalWrite(LIFT_MOTOR_IN_1,LOW);
+      digitalWrite(LIFT_MOTOR_IN_2,LOW);
+      digitalWrite(LIFT_MOTOR_IN_3,HIGH);
+      digitalWrite(LIFT_MOTOR_IN_4,LOW);
+      break;
+
+      case 3:
+      digitalWrite(LIFT_MOTOR_IN_1,LOW);
+      digitalWrite(LIFT_MOTOR_IN_2,LOW);
+      digitalWrite(LIFT_MOTOR_IN_3,LOW);
+      digitalWrite(LIFT_MOTOR_IN_4,HIGH);
+      break;
+    }
+  }
+
+  else{
+    switch(step_number)
+    {
+      
+      case 0:
+      digitalWrite(LIFT_MOTOR_IN_1,LOW);
+      digitalWrite(LIFT_MOTOR_IN_2,LOW);
+      digitalWrite(LIFT_MOTOR_IN_3,LOW);
+      digitalWrite(LIFT_MOTOR_IN_4,HIGH);
+      break;
+
+      case 1:
+      digitalWrite(LIFT_MOTOR_IN_1,LOW);
+      digitalWrite(LIFT_MOTOR_IN_2,LOW);
+      digitalWrite(LIFT_MOTOR_IN_3,HIGH);
+      digitalWrite(LIFT_MOTOR_IN_4,LOW);
+      break;
+
+      case 2:
+      digitalWrite(LIFT_MOTOR_IN_1,LOW);
+      digitalWrite(LIFT_MOTOR_IN_2,HIGH);
+      digitalWrite(LIFT_MOTOR_IN_3,LOW);
+      digitalWrite(LIFT_MOTOR_IN_4,LOW);
+      break;
+
+      case 3:
+      digitalWrite(LIFT_MOTOR_IN_1,HIGH);
+      digitalWrite(LIFT_MOTOR_IN_2,LOW);
+      digitalWrite(LIFT_MOTOR_IN_3,LOW);
+      digitalWrite(LIFT_MOTOR_IN_4,LOW);
+      break;
+    }
+  }
+
+  step_number++;
+  if (step_number>3)
+  {
+    step_number=0;
+  }
+}
 void lift(int dir, int dly)
 {
-    dir = dir % 2; // change to the below line if the turning is going opposite to what we are getting
-    //dir = (dir + 1) % 2;
-    digitalWrite(dir ? LIFT_MOTOR_IN_1 : LIFT_MOTOR_IN_2, HIGH);
-    digitalWrite(dir ? LIFT_MOTOR_IN_2 : LIFT_MOTOR_IN_1, LOW);
-    delay(dly);
+   for(int a=0;a<512;a++)
+  {Onestep(true);
+  delay(2);}
+
+  delay(1000);
+  
+  for(int a=0;a<512;a++)
+  {Onestep(false);
+  delay(2);}
 }
+
 void finish()
 {
     radio.stopListening();
