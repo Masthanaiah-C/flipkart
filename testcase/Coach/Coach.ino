@@ -45,7 +45,7 @@ void setup()
 }
 void loop()
 {
-    while (Serial.available() > 0)
+    if (Serial.available() > 0)
     {
         packet.robot = Serial.parseInt();
 

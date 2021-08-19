@@ -23,19 +23,21 @@ refer the video from udemy 1300 in the udemy course
 // modify your values only in this section 
 //VALUE SECTION BEGIN
 int CHANNEL = 100;
-int ROBOT = 1; // robot number ranges from 1 to 4
+int ROBOT = 1; // robot number ranges from 1 to 4 //id
 int DELAY = 50; // stop delay for the computer to recognise that the robot is at rest.
 // assign port values to the following 6 
 int LIFT_MOTOR_IN_1; 
 int LIFT_MOTOR_IN_2; 
 int LIFT_MOTOR_IN_3; 
 int LIFT_MOTOR_IN_4;
+
 int LEFT_WHEEL_IN_1;
 int LEFT_WHEEL_IN_2;
 int ena;
 int RIGHT_WHEEL_IN_1;
 int RIGHT_WHEEL_IN_2;
 int enb;
+
 //VALUE SECTION END
 
 //Dont touch anything below this line unless you need to change directions 
